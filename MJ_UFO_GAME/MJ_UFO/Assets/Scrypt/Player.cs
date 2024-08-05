@@ -15,6 +15,20 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        // if statement that says, when I press A go left
+        if (Input.GetKey(KeyCode.A))
+        {
+            this.transform.Translate(0.025f, 0, 0);
+        }
+
+
+        // if statement that says, when I press D go right
+        // if statement that says, when I press W go in
+        // if statement that says, when I press S go out
+        
+
+
+
         
     }
 
