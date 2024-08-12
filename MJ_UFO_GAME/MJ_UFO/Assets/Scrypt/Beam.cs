@@ -8,8 +8,23 @@ public class Beam : MonoBehaviour
 
     void Start()
     {
+     
+    }
+
+    private void turnoff()
+    {
         
     }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Cow")
+        { 
+            Destroy(other.gameObject);
+        }
+    }
+
 
     // Update is called once per frame
     void Update()

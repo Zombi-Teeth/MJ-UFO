@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Farmer : MonoBehaviour
 {
-
+    public int ;
+    
     // farmer can appear. 
     // farmer shoots at the player, then goes away 
 
@@ -17,6 +18,6 @@ public class Farmer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Translate(0, 0, 0);
     }
 }
