@@ -4,31 +4,56 @@ using UnityEngine;
 
 public class Beam : MonoBehaviour
 {
-    // beams cows
+    public float stayDuration = 3.0f; // Duration for which the cow stays in the beam before being destroyed
 
-    void Start()
-    {
-     
-    }
-
-    private void turnoff()
-    {
-        
-    }
-
+    private Dictionary<GameObject, float> cowsInBeam = new Dictionary<GameObject, float>();
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Cow")
-        { 
-            Destroy(other.gameObject);
+        if (other.gameObject.CompareTag("Cow"))
+        {
+            // Add the cow to the dictionary with the current time
+            if (!cowsInBeam.ContainsKey(other.gameObject))
+            {
+                cowsInBeam.Add(other.gameObject, Time.time);
+            }
         }
     }
 
-
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerExit(Collider other)
     {
-        
+        if (other.gameObject.CompareTag("Cow"))
+        {
+            // Remove the cow from the dictionary
+            if (cowsInBeam.ContainsKey(other.gameObject))
+            {
+                cowsInBeam.Remove(other.gameObject);
+            }
+        }
+    }
+
+    private void Update()
+    {
+        // List to store cows that should be destroyed
+        List<GameObject> cowsToDestroy = new List<GameObject>();
+
+        foreach (var kvp in cowsInBeam)
+        {
+            GameObject cow = kvp.Key;
+            float entryTime = kvp.Value;
+
+            // Check if the cow should be destroyed
+            if (Time.time - entryTime >= stayDuration)
+            {
+                cowsToDestroy.Add(cow);
+            }
+        }
+
+        // Destroy cows that need to be destroyed
+        foreach (GameObject cow in cowsToDestroy)
+        {
+            Destroy(cow);
+            cowsInBeam.Remove(cow); // Remove from dictionary after destruction
+        }
     }
 }
