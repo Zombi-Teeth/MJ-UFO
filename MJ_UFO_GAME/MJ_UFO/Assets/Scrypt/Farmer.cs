@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Farmer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject objectToInstantiate; // The GameObject to instantiate
+    public float interval = 2.0f; // Time in seconds between each instantiation
+
+    private void Start()
     {
-        
+        // Start the coroutine to instantiate objects at regular intervals
+        StartCoroutine(InstantiateObjects());
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator InstantiateObjects()
     {
-        
+        while (true) // Infinite loop to keep instantiating objects
+        {
+            // Instantiate the object at the current position and with no rotation
+            Instantiate(objectToInstantiate, transform.position, this.transform.rotation);
+
+            // Wait for the specified interval before continuing
+            yield return new WaitForSeconds(interval);
+        }
     }
 }

@@ -16,7 +16,9 @@ public class Player : MonoBehaviour
     public int maxHP = 3;
     public GameObject beam;
 
-
+    // Public variables to assign in Unity Inspector
+    public float leftBoundary = -10f;  // X value at which the object wraps to the right
+    public float rightBoundary = 10f;  // X value at which the object wraps to the left
 
 
     // -player can move left and right
@@ -45,6 +47,12 @@ public class Player : MonoBehaviour
 
 
     // Update is called once per frame
+
+
+    //If the object goes past a certain X, teleport to another X
+
+
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -56,6 +64,25 @@ public class Player : MonoBehaviour
         {
             beam.gameObject.SetActive(false);
         }
+
+        // Get the current X position of the GameObject
+        float xPos = transform.position.x;
+
+        // Check if the GameObject has crossed the right boundary
+        if (xPos > rightBoundary)
+        {
+            // Teleport to the left boundary
+            transform.position = new Vector3(leftBoundary, transform.position.y, transform.position.z);
+        }
+        // Check if the GameObject has crossed the left boundary
+        else if (xPos < leftBoundary)
+        {
+            // Teleport to the right boundary
+            transform.position = new Vector3(rightBoundary, transform.position.y, transform.position.z);
+        }
+
+
+
     }
 
     private void FixedUpdate()
