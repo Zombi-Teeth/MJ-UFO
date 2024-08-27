@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Cow
+  - FxTemporaire
+  - Bullet
+  - Farmer
+  - Farmer (1)
   layers:
   - Default
   - TransparentFX
