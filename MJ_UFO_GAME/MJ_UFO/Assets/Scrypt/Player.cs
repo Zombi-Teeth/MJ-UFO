@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public int score = 0;
+
     public float ufoSpeed = 0.025f;
 
     int _hp = 3;
@@ -106,6 +108,14 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.S))
         {
             this.transform.Translate(0, 0, -ufoSpeed);
+        }
+    }
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            HandleDamage();
+           
         }
     }
 
