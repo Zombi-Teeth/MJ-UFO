@@ -8,6 +8,7 @@ public class Beam : MonoBehaviour
 
     private Dictionary<GameObject, float> cowsInBeam = new Dictionary<GameObject, float>();
 
+    public GameObject player;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Cow"))
@@ -27,6 +28,7 @@ public class Beam : MonoBehaviour
             // Remove the cow from the dictionary
             if (cowsInBeam.ContainsKey(other.gameObject))
             {
+                player.gameObject.GetComponent<Player>().score += 20;
                 cowsInBeam.Remove(other.gameObject);
             }
         }
